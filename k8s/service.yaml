@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: evaas-app-service
+spec:
+  type: LoadBalancer  # Creates public IP address
+  selector:
+    app: evaas-app  # Connect to pods with this label
+  ports:
+  - protocol: TCP
+    port: 80        # External port (what users access)
+    targetPort: 80  # Internal port (where your app listens)

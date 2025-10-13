@@ -1,12 +1,22 @@
-## 🎯 Project Motivation
+## 📸 Screenshots
 
-This project simulates the **SAS EVAAS DevOps workflow** to demonstrate:
+### API Documentation
+![API Docs](docs/screenshots/docs.png)
 
-1. **Modern CI/CD Pipeline Design** - Automated, secure deployment workflows
-2. **Cloud-Native Architecture** - Azure services (AKS, ACR, Key Vault)
-3. **Infrastructure-as-Code** - Reproducible, scalable infrastructure
-4. **Security-First Approach** - Image scanning, secret management, RBAC
-5. **Production Observability** - Monitoring and alerting infrastructure
+### API Response
+![API Response](docs/screenshots/api_output.png)
 
-These practices align with the responsibilities of the EVAAS DevOps team: 
-overseeing security programs, managing CI/CD pipelines, and maintaining critical infrastructure in a cloud-native environment.
+### Kubernetes Deployment
+![kubectl get all](docs/screenshots/kubectl_get_all.png)
+
+### Pod Logs
+![Pod Logs](docs/screenshots/pod_logs.png)
+
+### Azure Resource Group
+![Resource Group](docs/screenshots/resource_group.png)
+
+### AKS Cluster
+![AKS Cluster](docs/screenshots/aks.png)
+
+### Container Registry
+![ACR Repository](docs/screenshots/acr.png)

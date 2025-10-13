@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: evaas-app
+  labels:
+    app: evaas-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: evaas-app
+  template:
+    metadata:
+      labels:
+        app: evaas-app
+    spec:
+      containers:
+      - name: evaas-app
+        image: evaasdevacr.azurecr.io/evaas-app:v1  # Pull from ACR
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
