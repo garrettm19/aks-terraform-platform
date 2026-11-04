@@ -67,7 +67,7 @@ variable "node_vm_size" {
 }
 
 variable "enable_auto_scaling" {
-  description = "Enable cluster autoscaler (production best practice)"
+  description = "Enable the AKS cluster autoscaler"
   type        = bool
   default     = false # Disabled by default to keep costs predictable
 }
@@ -110,15 +110,9 @@ variable "acr_admin_enabled" {
 # ================================
 
 variable "enable_rbac" {
-  description = "Enable Kubernetes RBAC (always true for security)"
+  description = "Enable Kubernetes RBAC"
   type        = bool
   default     = true
-}
-
-variable "enable_private_cluster" {
-  description = "Make AKS API server private (production best practice, costs more)"
-  type        = bool
-  default     = false # Public API server; set true for production
 }
 
 variable "network_plugin" {
@@ -147,12 +141,6 @@ variable "key_vault_sku" {
   }
 }
 
-variable "enable_soft_delete" {
-  description = "Enable soft delete for Key Vault (prevents accidental secret deletion)"
-  type        = bool
-  default     = true
-}
-
 variable "soft_delete_retention_days" {
   description = "Days to retain soft-deleted secrets (7-90)"
   type        = number
@@ -169,7 +157,7 @@ variable "soft_delete_retention_days" {
 # ================================
 
 variable "enable_monitoring" {
-  description = "Enable Azure Monitor and Container Insights (production must-have)"
+  description = "Enable Container Insights with a Log Analytics workspace"
   type        = bool
   default     = true
 }

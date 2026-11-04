@@ -165,25 +165,6 @@ output "quick_start_guide" {
 # Cost Estimation
 # ================================
 
-output "estimated_monthly_cost" {
-  description = "Rough monthly cost estimate (USD)"
-  value       = <<-EOT
-  
-  Estimated Monthly Costs (approximate):
-  - AKS cluster (2 x Standard_DS2_v2): ~$140-160/month
-  - Azure Container Registry (Basic): ~$5/month
-  - Key Vault: ~$1-2/month
-  - Log Analytics: ~$50-80/month (varies by usage)
-  - Load Balancer: ~$20-30/month
-  ────────────────────────────────────────────
-  Total: ~$220-280/month
-  
-  Daily cost: ~$7-10/day
-  
-  To minimize costs, destroy the infrastructure when not in use:
-     Command: terraform destroy
-  EOT
-}
 
 # ================================
 # Security Reminders
