@@ -1,5 +1,7 @@
 # AKS Terraform Platform
 
+[![CI](https://github.com/garrettm19/aks-terraform-platform/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/garrettm19/aks-terraform-platform/actions/workflows/ci.yml)
+
 A reference deployment of a containerized Python (FastAPI) service on Azure
 Kubernetes Service. Terraform provisions the Azure resources (resource group,
 AKS, Container Registry, Key Vault, Log Analytics), and plain Kubernetes
