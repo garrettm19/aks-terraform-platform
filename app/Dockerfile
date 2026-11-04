@@ -6,9 +6,8 @@ WORKDIR /app
 
 # Copy requirements and install dependencies
 COPY requirements.txt .
+# --no-cache-dir keeps the pip download cache out of the image
 RUN pip install --no-cache-dir -r requirements.txt
-# We use --no-cache-dir because we are ready for production and
-# the cache helps with not having to reinstall certain dependencies
 
 # Copy application code
 COPY . .

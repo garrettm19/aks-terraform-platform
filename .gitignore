@@ -17,7 +17,8 @@ build/
 *.tfstate.lock.info
 .terraform/
 .terraform.lock.hcl
-terraform.tfvars  # Only if it contains secrets
+# Variable files may contain secrets
+terraform.tfvars
 
 # IDE
 .vscode/
