@@ -1,17 +1,16 @@
 # ================================
-# EVAAS DevOps Simulation - Variables
+# AKS Terraform Platform - Variables
 # ================================
-# Purpose: Define configurable parameters for infrastructure
-# Design: Enterprise-grade with validation and documentation
+# Purpose: Configurable parameters for the infrastructure, with input validation
 
 # ================================
 # Project Configuration
 # ================================
 
 variable "project_name" {
-  description = "Project identifier used for resource naming (lowercase, no special chars)"
+  description = "Project identifier used for resource naming (lowercase letters and numbers only; also used in the globally unique ACR name)"
   type        = string
-  default     = "evaas"
+  default     = "aksplatform"
 
   validation {
     condition     = can(regex("^[a-z0-9]+$", var.project_name))
@@ -62,7 +61,7 @@ variable "node_count" {
 }
 
 variable "node_vm_size" {
-  description = "VM size for AKS nodes (Standard_DS2_v2 = 2vCPU, 7GB RAM - good for demos)"
+  description = "VM size for AKS nodes (Standard_B2s = 2 vCPU, 4 GB RAM, burstable)"
   type        = string
   default     = "Standard_B2s"
 }
@@ -70,7 +69,7 @@ variable "node_vm_size" {
 variable "enable_auto_scaling" {
   description = "Enable cluster autoscaler (production best practice)"
   type        = bool
-  default     = false # Start disabled for cost control, enable for interview demo
+  default     = false # Disabled by default to keep costs predictable
 }
 
 variable "min_node_count" {
@@ -119,7 +118,7 @@ variable "enable_rbac" {
 variable "enable_private_cluster" {
   description = "Make AKS API server private (production best practice, costs more)"
   type        = bool
-  default     = false # Public for demo, private for production
+  default     = false # Public API server; set true for production
 }
 
 variable "network_plugin" {
@@ -194,30 +193,10 @@ variable "tags" {
   description = "Common tags applied to all resources (for cost tracking and organization)"
   type        = map(string)
   default = {
-    Project     = "EVAAS-Simulation"
+    Project     = "AKS-Terraform-Platform"
     ManagedBy   = "Terraform"
     Environment = "Development"
     Owner       = "DevOps-Team"
     CostCenter  = "Engineering"
   }
-}
-
-# ================================
-# Cost Optimization Flags
-# ================================
-
-variable "enable_cost_savings" {
-  description = "Enable cost-saving measures (smaller VMs, no redundancy - for demo only)"
-  type        = bool
-  default     = true # Safe for portfolio project
-}
-
-# ================================
-# Interview Demo Features
-# ================================
-
-variable "enable_demo_features" {
-  description = "Enable features useful for demonstrating capabilities (sample workloads, dashboards)"
-  type        = bool
-  default     = true
 }

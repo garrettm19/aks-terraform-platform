@@ -1,5 +1,5 @@
 # ================================
-# EVAAS DevOps Simulation - Main Infrastructure
+# AKS Terraform Platform - Main Infrastructure
 # ================================
 # Purpose: Provision Azure resources for containerized application
 # Architecture: AKS + ACR + Key Vault + Monitoring
@@ -85,7 +85,7 @@ resource "azurerm_container_registry" "acr" {
   tags = merge(
     var.tags,
     {
-      Purpose = "Container image storage for EVAAS application"
+      Purpose = "Container image storage"
     }
   )
 }
@@ -147,7 +147,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   tags = merge(
     var.tags,
     {
-      Purpose = "Kubernetes cluster for EVAAS microservices"
+      Purpose = "Kubernetes cluster for application workloads"
     }
   )
 
@@ -188,7 +188,7 @@ resource "azurerm_key_vault" "main" {
   enabled_for_disk_encryption = true
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   soft_delete_retention_days  = var.soft_delete_retention_days
-  purge_protection_enabled    = false # Disabled for demo (enable in production)
+  purge_protection_enabled    = false # Enable for production workloads
   sku_name                    = var.key_vault_sku
 
   # Access policy for current user (you)
@@ -222,22 +222,30 @@ resource "azurerm_key_vault" "main" {
   tags = merge(
     var.tags,
     {
-      Purpose = "Secrets management for EVAAS application"
+      Purpose = "Secrets management"
     }
   )
 }
 
 # ================================
-# Sample Secret (for demonstration)
+# Sample Secret
 # ================================
+
+# Generated at apply time so no secret value is stored in source control.
+# Note: the value is still kept in Terraform state; protect the state file.
+resource "random_password" "demo_db_password" {
+  length           = 24
+  special          = true
+  override_special = "!#%*-_=+"
+}
 
 resource "azurerm_key_vault_secret" "demo_secret" {
   name         = "demo-database-password"
-  value        = "P@ssw0rd123!-CHANGE-IN-PRODUCTION"
+  value        = random_password.demo_db_password.result
   key_vault_id = azurerm_key_vault.main.id
 
   tags = {
-    Purpose = "Demo secret for interview demonstration"
+    Purpose = "Sample secret showing Key Vault usage"
   }
 
   depends_on = [
@@ -246,7 +254,7 @@ resource "azurerm_key_vault_secret" "demo_secret" {
 }
 
 # ================================
-# Network Security Group (optional, for demo)
+# Network Security Group
 # ================================
 
 resource "azurerm_network_security_group" "aks" {
@@ -267,7 +275,7 @@ resource "azurerm_network_security_group" "aks" {
     destination_address_prefix = "*"
   }
 
-  # Allow HTTP inbound (for demo, disable in production)
+  # Allow HTTP inbound (consider restricting once TLS is in place)
   security_rule {
     name                       = "allow-http"
     priority                   = 110

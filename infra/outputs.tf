@@ -1,5 +1,5 @@
 # ================================
-# EVAAS DevOps Simulation - Outputs
+# AKS Terraform Platform - Outputs
 # ================================
 # Purpose: Export values for CI/CD pipelines and kubectl configuration
 # Usage: terraform output <output_name>
@@ -133,7 +133,7 @@ output "quick_start_guide" {
   value       = <<-EOT
   
   ═══════════════════════════════════════════════════════════
-  EVAAS DevOps Infrastructure - Quick Start Guide
+  AKS Terraform Platform - Quick Start Guide
   ═══════════════════════════════════════════════════════════
   
   1. Configure kubectl:
@@ -147,8 +147,8 @@ output "quick_start_guide" {
      az acr login --name ${azurerm_container_registry.acr.name}
   
   4. Tag and push Docker image:
-     docker tag evaas-app:local ${azurerm_container_registry.acr.login_server}/evaas-app:v1
-     docker push ${azurerm_container_registry.acr.login_server}/evaas-app:v1
+     docker tag api:v1 ${azurerm_container_registry.acr.login_server}/api:v1
+     docker push ${azurerm_container_registry.acr.login_server}/api:v1
   
   5. View Key Vault secrets:
      az keyvault secret list --vault-name ${azurerm_key_vault.main.name}
@@ -178,9 +178,9 @@ output "estimated_monthly_cost" {
   ────────────────────────────────────────────
   Total: ~$220-280/month
   
-  Daily cost for demo: ~$7-10/day
+  Daily cost: ~$7-10/day
   
-  💡 To minimize costs: Destroy infrastructure when not in use
+  To minimize costs, destroy the infrastructure when not in use:
      Command: terraform destroy
   EOT
 }
@@ -193,13 +193,13 @@ output "security_notes" {
   description = "Important security considerations"
   value       = <<-EOT
   
-  🔒 Security Checklist:
-  ✓ RBAC enabled on AKS
-  ✓ AKS connected to ACR via managed identity
-  ✓ Key Vault access policies configured
-  ✓ Admin credentials enabled for ACR (demo only)
+  Security checklist:
+  - RBAC enabled on AKS
+  - AKS connected to ACR via managed identity
+  - Key Vault access policies configured
+  - Admin credentials enabled for ACR (disable for production)
   
-  ⚠️  For Production:
+  For production:
   - Enable private cluster endpoint
   - Disable ACR admin account, use service principals
   - Enable Key Vault purge protection
